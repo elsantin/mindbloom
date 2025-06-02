@@ -19,14 +19,15 @@
     <link rel="mask-icon" href="images/icons/favicon.svg" color="#BDE4CB"> 
     <meta name="msapplication-TileColor" content="#1A1A1A">
     <meta name="theme-color" content="#BDE4CB"> 
+
     <style>
-        /* Estilos para el botón de emergencia (Glassmorphism) */
+        /* Estilos en línea del usuario para el botón de emergencia (Desktop) */
         #emergency-button {
             background-color: rgba(30, 30, 30, 0.5) !important; 
             backdrop-filter: blur(16px) !important;
             -webkit-backdrop-filter: blur(16px) !important; 
             border: 1px solid rgba(255, 255, 255, 0.3) !important; 
-            color: white !important; 
+            color: white !important;
         }
 
         #emergency-button:hover {
@@ -57,21 +58,13 @@
         </div>
     </div>
 
-    <button 
-        id="emergency-button" 
-        class="fixed top-8 right-4 sm:right-6 z-50 px-4 py-2 rounded-full shadow-xl breathe transition-all duration-300 hover:shadow-2xl" 
-        aria-label="Botón de ayuda urgente"
-    >
-        ¿Necesitas ayuda ya? <span class="sos-emoji">🆘</span>
-    </button>
-
     <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="emergency-modal-title">
         <div class="bg-card p-6 sm:p-8 rounded-lg shadow-xl max-w-md w-full transform transition-all scale-95 opacity-0" id="emergency-modal-content">
             <div class="flex justify-between items-center mb-4">
-                <h2 id="emergency-modal-title" class="text-xl sm:text-2xl font-semibold text-accent">Ayuda Urgente</h2>
+                <h2 id="emergency-modal-title" class="text-xl sm:text-2xl font-semibold text-accent">Apoyo Inmediato</h2>
                 <button id="close-emergency-modal" class="text-secondary hover:text-primary text-2xl" aria-label="Cerrar modal de ayuda urgente">&times;</button>
             </div>
-            <p class="text-secondary mb-4">Si sientes que tu vida o la de alguien más está en peligro, o necesitas hablar con alguien inmediatamente:</p>
+            <p class="text-secondary mb-4">Si sientes que tu vida o la de alguien más está en peligro, o necesitas hablar con alguien ahora mismo:</p>
             <div class="space-y-3 mb-6">
                 <a href="tel:171" class="block w-full text-center bg-accent text-on-accent-color font-semibold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
                     📞 Llamar al 171 (Línea de Crisis Vzla)
@@ -80,27 +73,47 @@
                     🚨 Llamar al 911 (Emergencias)
                 </a>
             </div>
-            <p class="text-xs text-secondary text-center">Estos servicios suelen estar disponibles 24/7. No estás solo/a.</p>
+            <p class="text-xs text-secondary text-center">Estos servicios están disponibles las 24 horas. Aquí estamos, no estás solo/a.</p>
         </div>
     </div>
     
-    <header class="sticky top-0 z-40 bg-main shadow-md" style="--tw-shadow-color: var(--shadow-color);">
+    <header class="sticky top-0 z-40 shadow-md" style="--tw-shadow-color: var(--shadow-color);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center"> 
-                <a href="#" class="flex items-center group py-1"> <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-24 w-auto transition-transform duration-300 group-hover:scale-110">
+                <a href="#" class="flex items-center group"> 
+                    <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-12 w-auto transition-transform duration-300 group-hover:scale-110">
                 </a>
-                <nav class="hidden md:flex space-x-4 lg:space-x-6 items-center">
-                    <a href="#hero" class="nav-link">Inicio</a>
-                    <a href="#check-in" class="nav-link">Mi Día</a>
-                    <a href="#tools" class="nav-link">Herramientas</a>
-                    <a href="#equipo" class="nav-link">Equipo</a>
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar tema claro/oscuro">
-                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-8.66l-.707.707M4.04 4.04l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 19.96l-.707-.707"/></svg>
-                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                
+                <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                    <nav class="flex space-x-3 lg:space-x-4">
+                        <a href="#hero" class="nav-link">Inicio</a>
+                        <a href="#check-in" class="nav-link">Mi Día</a>
+                        <a href="#tools" class="nav-link">Mis Herramientas</a>
+                        <a href="#equipo" class="nav-link">Mi Equipo</a>
+                    </nav>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar entre modo claro y oscuro">
+                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-8.66l-.707.707M4.04 4.04l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 19.96l-.707-.707"/></svg>
+                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
-                </nav>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Abrir menú móvil" aria-expanded="false" aria-controls="mobile-menu">
+                    <button 
+                        id="emergency-button" 
+                        class="px-4 py-2 rounded-full text-sm font-medium shadow-xl hover:shadow-2xl transition-all duration-300" 
+                        aria-label="Botón de ayuda urgente"
+                    >
+                        ¿Necesitas apoyo ahorita? <span class="sos-emoji text-base">🆘</span>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center space-x-2">
+                    <button 
+                        id="emergency-button-mobile" 
+                        class="p-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300" 
+                        aria-label="Botón de ayuda urgente"
+                        style="background-color: rgba(255,0,0,0.08); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);"
+                    >
+                        <span class="sos-emoji text-lg">🆘</span>
+                    </button>
+                    <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Abrir el menú" aria-expanded="false" aria-controls="mobile-menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
@@ -110,14 +123,14 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-main bg-opacity-95 z-50 p-4" role="dialog" aria-modal="true">
             <div class="flex justify-end mb-4">
-                <button id="close-mobile-menu" class="p-2 text-2xl" aria-label="Cerrar menú móvil">&times;</button>
+                <button id="close-mobile-menu" class="p-2 text-2xl" aria-label="Cerrar el menú">&times;</button>
             </div>
             <nav class="flex flex-col space-y-4 text-center">
                 <a href="#hero" class="mobile-nav-link">Inicio</a>
                 <a href="#check-in" class="mobile-nav-link">Mi Día</a>
-                <a href="#tools" class="mobile-nav-link">Herramientas</a>
-                <a href="#equipo" class="mobile-nav-link">Equipo</a>
-                <button id="theme-toggle-mobile" class="mt-4 p-2 mx-auto rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar tema claro/oscuro">
+                <a href="#tools" class="mobile-nav-link">Mis Herramientas</a>
+                <a href="#equipo" class="mobile-nav-link">Mi Equipo</a>
+                <button id="theme-toggle-mobile" class="mt-4 p-2 mx-auto rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar entre modo claro y oscuro">
                 </button>
             </nav>
         </div>
@@ -129,31 +142,33 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center md:justify-end">
                 <div class="relative z-10 md:w-1/2 lg:w-2/5 text-center md:text-right py-10 md:py-0"> 
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 animate-fade-in-down">
-                        Bienvenido/a a <span class="text-accent-hero">MindBloom</span>. </h1>
+                        Respira. Estás en <span class="text-accent-hero">MindBloom</span>.
+                    </h1>
                     <p class="text-xl sm:text-2xl text-gray-200 mb-8 animate-fade-in-up">
-                        Un espacio seguro donde puedes ser tú mismo/a.
+                        Tu espacio seguro para ser quien realmente eres, sin filtros.
                     </p>
-                    <a href="#check-in" class="btn-hero-dynamic"> 
-                        Comienza tu Check-in Emocional <i class="fas fa-arrow-right ml-2"></i>
+                    <a href="#check-in" class="btn-hero-dynamic">
+                        Cuéntame cómo andas hoy <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
             </div>
         </section>
+
         <section id="check-in" class="py-16 sm:py-24 bg-main section-animation">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">¿Cómo te sientes <span class="text-accent">hoy</span>?</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Échame el cuento, ¿cómo te sientes <span class="text-accent">hoy</span>?</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 max-w-3xl mx-auto mb-12">
                     <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Feliz" data-color="#FFD700">
                         <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😄</span>
                         <span class="block text-center font-medium">Feliz</span>
                     </button>
-                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Tranquilo/a" data-color="#ADD8E6">
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Tranqui" data-color="#ADD8E6">
                         <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😌</span>
-                        <span class="block text-center font-medium">Tranquilo/a</span>
+                        <span class="block text-center font-medium">Tranqui</span>
                     </button>
-                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Normal" data-color="#E0E0E0">
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Ahí vamos" data-color="#E0E0E0">
                         <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😐</span>
-                        <span class="block text-center font-medium">Normal</span>
+                        <span class="block text-center font-medium">Ahí vamos</span>
                     </button>
                     <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Preocupado/a" data-color="#FFA07A">
                         <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😟</span>
@@ -191,43 +206,43 @@
 
         <section id="tools" class="py-16 sm:py-24 bg-card section-animation">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Herramientas para <span class="text-accent">tu Bienestar</span></h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Herramientas que te pueden <span class="text-accent">ayudar</span></h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-brain"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Técnicas de Relajación</h3>
-                        <p class="text-secondary mb-4">Aprende a calmar tu mente con ejercicios de respiración y mindfulness.</p>
+                        <h3 class="text-xl font-semibold mb-2">Para bajarle dos al estrés</h3>
+                        <p class="text-secondary mb-4">Técnicas sencillas para cuando sientes que todo se acelera demasiado. Respirar bien es más poderoso de lo que imaginas.</p>
                         <a href="#" class="font-semibold text-accent hover:underline">Explorar técnicas <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-book-open-reader"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Diario de Gratitud</h3>
-                        <p class="text-secondary mb-4">Enfócate en lo positivo. Anota tres cosas por las que estás agradecido/a hoy.</p>
-                        <a href="#" class="font-semibold text-accent hover:underline">Abrir diario <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        <h3 class="text-xl font-semibold mb-2">Tu Diario de Cosas Buenas</h3>
+                        <p class="text-secondary mb-4">Anota tres cosas finas que te pasaron hoy. Verás cómo cambia el panorama.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Empezar a escribir <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-headphones-alt"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Sonidos Relajantes</h3>
-                        <p class="text-secondary mb-4">Escucha música ambiental o sonidos de la naturaleza para encontrar calma.</p>
+                        <h3 class="text-xl font-semibold mb-2">Sonidos para desconectar</h3>
+                        <p class="text-secondary mb-4">Música y sonidos de la naturaleza para cuando necesites poner la mente en blanco.</p>
                         <a href="#" class="font-semibold text-accent hover:underline">Escuchar ahora <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-lightbulb"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Resolución de Problemas</h3>
+                        <h3 class="text-xl font-semibold mb-2">¿Sientes que las cosas están complicadas?</h3>
                         <p class="text-secondary mb-4">Guía paso a paso para enfrentar desafíos y encontrar soluciones.</p>
                         <a href="#" class="font-semibold text-accent hover:underline">Ver guía <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-user-friends"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Conectar con Otros</h3>
-                        <p class="text-secondary mb-4">Ideas para fortalecer tus relaciones y construir una red de apoyo.</p>
+                        <h3 class="text-xl font-semibold mb-2">Conecta con tu gente</h3>
+                        <p class="text-secondary mb-4">Ideas para fortalecer la relación con tus panas y esa gente que te apoya.</p>
                         <a href="#" class="font-semibold text-accent hover:underline">Aprender más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                     <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-question-circle"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Aprende Sobre Salud Mental</h3>
-                        <p class="text-secondary mb-4">Información clara y sencilla sobre temas comunes de salud mental.</p>
-                        <a href="#" class="font-semibold text-accent hover:underline">Leer artículos <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        <h3 class="text-xl font-semibold mb-2">Entiende tu Mente</h3>
+                        <p class="text-secondary mb-4">Sin rollos técnicos ni palabras raras. Info directa sobre ansiedad, depresión y otros temas que tal vez estés viviendo.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Leer más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -236,14 +251,14 @@
         <section id="equipo" class="section-animation py-20 px-4">
             <div class="container mx-auto max-w-6xl">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 accent">Tu Equipo de Apoyo</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 accent">Quienes te Acompañan</h2>
                     <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-                        Conoce a los profesionales venezolanos que están aquí para escucharte y orientarte. No son figuras de autoridad, sino aliados en tu camino hacia el bienestar.
+                        Conoce a los profesionales venezolanos que están aquí para echarte una mano. No son figuras de autoridad, sino panas en este camino hacia el bienestar.
                     </p>
                 </div>
         
                 <div class="mb-16">
-                    <h3 class="text-2xl font-bold mb-10 text-center">💚 Apoyo Emocional y Mental</h3>
+                    <h3 class="text-2xl font-bold mb-10 text-center">💚 Para tu mente y tus emociones</h3>
                     <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 max-w-4xl mx-auto">
                         
                         <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
@@ -251,7 +266,7 @@
                             <h4 class="text-xl font-bold mb-1">Lic. Margueryte Soto</h4>
                             <p class="text-accent font-semibold mb-3">Psicóloga Clínica</p>
                             <p class="text-secondary text-sm mb-4 flex-grow">
-                                Margueryte es esa persona con la que puedes hablar sin miedo a ser juzgado/a. Ella entiende que la presión del liceo o simplemente no saber qué sientes puede ser abrumador. Su especialidad es ayudarte a desenredar ese nudo de emociones y darte herramientas prácticas para tu día a día.
+                                Con Margueryte puedes hablar de todo sin filtros. Ella sabe que el liceo puede ser un estrés total y que a veces ni tú mismo entiendes lo que sientes. Su especialidad es ayudarte a desenredar ese nudo de emociones y darte herramientas prácticas para tu día a día.
                             </p>
                             <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
                                 <p><strong>Respaldo:</strong> +25 años de experiencia con jóvenes y adolescentes.</p>
@@ -263,7 +278,7 @@
                             <h4 class="text-xl font-bold mb-1">Dra. Alicia Puternicki</h4>
                             <p class="text-accent font-semibold mb-3">Psiquiatra</p>
                             <p class="text-secondary text-sm mb-4 flex-grow">
-                                La Dra. Alicia es la persona a la que acudes cuando sientes que tus emociones son demasiado intensas. Con ella puedes hablar con confianza sobre ansiedad, depresión o si un tratamiento podría ayudarte. Te explicará todo de forma clara, sin palabras complicadas.
+                                La Dra. Alicia es para cuando sientes que tus emociones están muy intensas y necesitas ayuda más específica. Con ella puedes hablar tranquilo sobre ansiedad, depresión o si necesitas algún tratamiento. Te explica todo clarito, sin palabras raras de médico.
                             </p>
                             <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
                                 <p><strong>Respaldo:</strong> Médico de la ULA con +40 años de carrera en el área de salud.</p>
@@ -334,9 +349,9 @@
             <div class="grid md:grid-cols-3 gap-8 mb-8"> 
                 <div class="md:col-span-1 flex flex-col items-center md:items-start"> 
                     <div class="mb-4">
-                        <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-32 w-auto">
+                        <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-16 w-auto footer-logo-image">
                     </div>
-                    <p class="text-secondary mb-4 text-center md:text-left">Tu espacio seguro para crecer y encontrar calma. Estamos aquí para ti, adolescente venezolano.</p>
+                    <p class="text-secondary mb-4 text-center md:text-left">Tu rincón seguro para crecer y encontrar tu calma.<br>Estamos aquí para ti, chamo venezolano.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-secondary hover:text-accent transition-colors" aria-label="Facebook MindBloom"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="text-secondary hover:text-accent transition-colors" aria-label="Instagram MindBloom"><i class="fab fa-instagram"></i></a>
@@ -348,7 +363,7 @@
                     <ul class="space-y-2 text-secondary text-center md:text-left">
                         <li><a href="#hero" class="hover:text-accent transition-colors">Inicio</a></li>
                         <li><a href="#check-in" class="hover:text-accent transition-colors">Mi Día</a></li>
-                        <li><a href="#tools" class="hover:text-accent transition-colors">Herramientas</a></li>
+                        <li><a href="#tools" class="hover:text-accent transition-colors">Mis Herramientas</a></li>
                         <li><a href="#equipo" class="hover:text-accent transition-colors">Nuestro Equipo</a></li>
                         <li><a href="#" class="hover:text-accent transition-colors">Preguntas Frecuentes</a></li>
                         <li><a href="#" class="hover:text-accent transition-colors">Privacidad</a></li>
@@ -379,28 +394,12 @@
         <p id="toast-message"></p>
     </div>
 
-    <script src="js/app.js"></script>
-
     <button id="scrollToTopBtn" title="Volver arriba"
             class="scroll-to-top-stylish fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg focus:outline-none transition-all duration-300 opacity-0 pointer-events-none">
-        <i class="fas fa-chevron-up text-2xl"></i> </button>
-    <!-- 
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swPath = './service-worker.js'; 
-                console.log('Intentando registrar Service Worker con la ruta:', swPath);
-                navigator.serviceWorker.register(swPath) 
-                    .then(registration => {
-                        console.log('Service Worker registrado con éxito. Scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Error en el registro del Service Worker:', error); 
-                        console.error('Ruta del Service Worker utilizada en el intento fallido:', swPath);
-                    });
-            });
-        }
-    </script>
-    -->
-</body>
+        <i class="fas fa-chevron-up text-2xl"></i>
+    </button>
+
+    <script src="js/app.js"></script>
+
+    </body>
 </html>
