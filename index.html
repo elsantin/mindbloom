@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom: Tu Espacio para Respirar</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/icons/favicon-96x96.png">
+    <link rel="mask-icon" href="images/icons/favicon.svg" color="#BDE4CB"> 
+    <meta name="msapplication-TileColor" content="#1A1A1A">
+    <meta name="theme-color" content="#BDE4CB"> 
+    <style>
+        /* Estilos para el botón de emergencia (Glassmorphism) */
+        #emergency-button {
+            background-color: rgba(30, 30, 30, 0.5) !important; 
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important; 
+            border: 1px solid rgba(255, 255, 255, 0.3) !important; 
+            color: white !important; 
+        }
+
+        #emergency-button:hover {
+            background-color: rgba(50, 50, 50, 0.65) !important; 
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        [data-theme="light"] #emergency-button {
+            background-color: rgba(250, 250, 250, 0.6) !important; 
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important; 
+            color: #1a1a1a !important; 
+        }
+
+        [data-theme="light"] #emergency-button:hover {
+            background-color: rgba(240, 240, 240, 0.75) !important;
+            border-color: rgba(0, 0, 0, 0.25) !important;
+        }
+    </style>
+
+</head>
+<body class="bg-main text-primary">
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-secondary">Preparando tu espacio seguro...</p>
+        </div>
+    </div>
+
+    <button 
+        id="emergency-button" 
+        class="fixed top-8 right-4 sm:right-6 z-50 px-4 py-2 rounded-full shadow-xl breathe transition-all duration-300 hover:shadow-2xl" 
+        aria-label="Botón de ayuda urgente"
+    >
+        ¿Necesitas ayuda ya? <span class="sos-emoji">🆘</span>
+    </button>
+
+    <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="emergency-modal-title">
+        <div class="bg-card p-6 sm:p-8 rounded-lg shadow-xl max-w-md w-full transform transition-all scale-95 opacity-0" id="emergency-modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="emergency-modal-title" class="text-xl sm:text-2xl font-semibold text-accent">Ayuda Urgente</h2>
+                <button id="close-emergency-modal" class="text-secondary hover:text-primary text-2xl" aria-label="Cerrar modal de ayuda urgente">&times;</button>
+            </div>
+            <p class="text-secondary mb-4">Si sientes que tu vida o la de alguien más está en peligro, o necesitas hablar con alguien inmediatamente:</p>
+            <div class="space-y-3 mb-6">
+                <a href="tel:171" class="block w-full text-center bg-accent text-on-accent-color font-semibold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
+                    📞 Llamar al 171 (Línea de Crisis Vzla)
+                </a>
+                <a href="tel:911" class="block w-full text-center bg-red-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-600 transition-colors">
+                    🚨 Llamar al 911 (Emergencias)
+                </a>
+            </div>
+            <p class="text-xs text-secondary text-center">Estos servicios suelen estar disponibles 24/7. No estás solo/a.</p>
+        </div>
+    </div>
+    
+    <header class="sticky top-0 z-40 bg-main shadow-md" style="--tw-shadow-color: var(--shadow-color);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center"> 
+                <a href="#" class="flex items-center group py-1"> <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-24 w-auto transition-transform duration-300 group-hover:scale-110">
+                </a>
+                <nav class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                    <a href="#hero" class="nav-link">Inicio</a>
+                    <a href="#check-in" class="nav-link">Mi Día</a>
+                    <a href="#tools" class="nav-link">Herramientas</a>
+                    <a href="#equipo" class="nav-link">Equipo</a>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar tema claro/oscuro">
+                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-8.66l-.707.707M4.04 4.04l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 19.96l-.707-.707"/></svg>
+                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    </button>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Abrir menú móvil" aria-expanded="false" aria-controls="mobile-menu">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-main bg-opacity-95 z-50 p-4" role="dialog" aria-modal="true">
+            <div class="flex justify-end mb-4">
+                <button id="close-mobile-menu" class="p-2 text-2xl" aria-label="Cerrar menú móvil">&times;</button>
+            </div>
+            <nav class="flex flex-col space-y-4 text-center">
+                <a href="#hero" class="mobile-nav-link">Inicio</a>
+                <a href="#check-in" class="mobile-nav-link">Mi Día</a>
+                <a href="#tools" class="mobile-nav-link">Herramientas</a>
+                <a href="#equipo" class="mobile-nav-link">Equipo</a>
+                <button id="theme-toggle-mobile" class="mt-4 p-2 mx-auto rounded-full hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Cambiar tema claro/oscuro">
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="min-h-screen flex items-center bg-cover bg-center section-animation" style="background-image: url('images/hero-mindbloom-flor.jpg');">
+            <div class="absolute inset-0 bg-black opacity-60"></div> 
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center md:justify-end">
+                <div class="relative z-10 md:w-1/2 lg:w-2/5 text-center md:text-right py-10 md:py-0"> 
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 animate-fade-in-down">
+                        Bienvenido/a a <span class="text-accent-hero">MindBloom</span>. </h1>
+                    <p class="text-xl sm:text-2xl text-gray-200 mb-8 animate-fade-in-up">
+                        Un espacio seguro donde puedes ser tú mismo/a.
+                    </p>
+                    <a href="#check-in" class="btn-hero-dynamic"> 
+                        Comienza tu Check-in Emocional <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="check-in" class="py-16 sm:py-24 bg-main section-animation">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">¿Cómo te sientes <span class="text-accent">hoy</span>?</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 max-w-3xl mx-auto mb-12">
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Feliz" data-color="#FFD700">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😄</span>
+                        <span class="block text-center font-medium">Feliz</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Tranquilo/a" data-color="#ADD8E6">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😌</span>
+                        <span class="block text-center font-medium">Tranquilo/a</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Normal" data-color="#E0E0E0">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😐</span>
+                        <span class="block text-center font-medium">Normal</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Preocupado/a" data-color="#FFA07A">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😟</span>
+                        <span class="block text-center font-medium">Preocupado/a</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Triste" data-color="#B0C4DE">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😢</span>
+                        <span class="block text-center font-medium">Triste</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Ansioso/a" data-color="#FFB6C1">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😰</span>
+                        <span class="block text-center font-medium">Ansioso/a</span>
+                    </button>
+                     <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Enojado/a" data-color="#FF6347">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">😠</span>
+                        <span class="block text-center font-medium">Enojado/a</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Motivado/a" data-color="#98FB98">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">🚀</span>
+                        <span class="block text-center font-medium">Motivado/a</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Agradecido/a" data-color="#FFC0CB">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">🙏</span>
+                        <span class="block text-center font-medium">Agradecido/a</span>
+                    </button>
+                    <button class="emotion-btn group bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-emotion="Confundido/a" data-color="#D3D3D3">
+                        <span class="text-4xl sm:text-5xl block text-center mb-2 group-hover:animate-wiggle">🤔</span>
+                        <span class="block text-center font-medium">Confundido/a</span>
+                    </button>
+                </div>
+                <div id="emotion-response" class="text-center text-lg text-secondary hidden mt-8 p-6 bg-card rounded-lg shadow-md max-w-xl mx-auto">
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="py-16 sm:py-24 bg-card section-animation">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Herramientas para <span class="text-accent">tu Bienestar</span></h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-brain"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Técnicas de Relajación</h3>
+                        <p class="text-secondary mb-4">Aprende a calmar tu mente con ejercicios de respiración y mindfulness.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Explorar técnicas <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-book-open-reader"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Diario de Gratitud</h3>
+                        <p class="text-secondary mb-4">Enfócate en lo positivo. Anota tres cosas por las que estás agradecido/a hoy.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Abrir diario <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-headphones-alt"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Sonidos Relajantes</h3>
+                        <p class="text-secondary mb-4">Escucha música ambiental o sonidos de la naturaleza para encontrar calma.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Escuchar ahora <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Resolución de Problemas</h3>
+                        <p class="text-secondary mb-4">Guía paso a paso para enfrentar desafíos y encontrar soluciones.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Ver guía <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-user-friends"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Conectar con Otros</h3>
+                        <p class="text-secondary mb-4">Ideas para fortalecer tus relaciones y construir una red de apoyo.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Aprender más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <div class="bg-main p-6 rounded-lg shadow-lg hover-lift transition-all duration-300">
+                        <div class="text-3xl text-accent mb-4"><i class="fas fa-question-circle"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Aprende Sobre Salud Mental</h3>
+                        <p class="text-secondary mb-4">Información clara y sencilla sobre temas comunes de salud mental.</p>
+                        <a href="#" class="font-semibold text-accent hover:underline">Leer artículos <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipo" class="section-animation py-20 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 accent">Tu Equipo de Apoyo</h2>
+                    <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+                        Conoce a los profesionales venezolanos que están aquí para escucharte y orientarte. No son figuras de autoridad, sino aliados en tu camino hacia el bienestar.
+                    </p>
+                </div>
+        
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold mb-10 text-center">💚 Apoyo Emocional y Mental</h3>
+                    <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/margueryte-soto.jpg" alt="Foto de la Lic. Margueryte Soto" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-xl font-bold mb-1">Lic. Margueryte Soto</h4>
+                            <p class="text-accent font-semibold mb-3">Psicóloga Clínica</p>
+                            <p class="text-secondary text-sm mb-4 flex-grow">
+                                Margueryte es esa persona con la que puedes hablar sin miedo a ser juzgado/a. Ella entiende que la presión del liceo o simplemente no saber qué sientes puede ser abrumador. Su especialidad es ayudarte a desenredar ese nudo de emociones y darte herramientas prácticas para tu día a día.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> +25 años de experiencia con jóvenes y adolescentes.</p>
+                            </div>
+                        </div>
+        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/alicia-puternicki.jpg" alt="Foto de la Dra. Alicia Puternicki" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-xl font-bold mb-1">Dra. Alicia Puternicki</h4>
+                            <p class="text-accent font-semibold mb-3">Psiquiatra</p>
+                            <p class="text-secondary text-sm mb-4 flex-grow">
+                                La Dra. Alicia es la persona a la que acudes cuando sientes que tus emociones son demasiado intensas. Con ella puedes hablar con confianza sobre ansiedad, depresión o si un tratamiento podría ayudarte. Te explicará todo de forma clara, sin palabras complicadas.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> Médico de la ULA con +40 años de carrera en el área de salud.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <h3 class="text-2xl font-bold mb-10 text-center">🏥 Apoyo Médico Especializado</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/zulyce-malave.jpg" alt="Foto de la Dra. Zúlyce Malavé" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-lg font-bold mb-1">Dra. Zúlyce Malavé</h4>
+                            <p class="text-accent font-semibold text-sm mb-3">Ginecología</p>
+                            <p class="text-secondary text-xs mb-4 flex-grow">
+                                Ideal si tienes dudas sobre tu desarrollo, período o cualquier tema de salud femenina en un espacio seguro y moderno.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> Postgrado en la Maternidad Concepción Palacios (UCV).</p>
+                            </div>
+                        </div>
+        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/franklin-cortez.jpg" alt="Foto del Dr. Franklin Cortez" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-lg font-bold mb-1">Dr. Franklin Cortez</h4>
+                            <p class="text-accent font-semibold text-sm mb-3">Neurocirugía Pediátrica</p>
+                            <p class="text-secondary text-xs mb-4 flex-grow">
+                                Experto en el sistema nervioso de los más jóvenes. Te ayuda con dolores de cabeza fuertes y otros temas neurológicos.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> Formado en el Hospital J.M. de los Ríos (UCV).</p>
+                            </div>
+                        </div>
+        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/nelson-lastra.jpg" alt="Foto del Dr. Nelson Lastra" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-lg font-bold mb-1">Dr. Nelson Lastra</h4>
+                            <p class="text-accent font-semibold text-sm mb-3">Neurocirugía</p>
+                            <p class="text-secondary text-xs mb-4 flex-grow">
+                                Especialista en condiciones relacionadas con el cerebro y la columna vertebral.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> Especialista egresado de la ULA.</p>
+                            </div>
+                        </div>
+        
+                        <div class="specialist-card bg-card p-6 rounded-xl shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex flex-col">
+                            <img src="images/team/sandra-sanchez-garcia.jpg" alt="Foto de la Dra. Sandra Sánchez" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--accent);">
+                            <h4 class="text-lg font-bold mb-1">Dra. Sandra Sánchez</h4>
+                            <p class="text-accent font-semibold text-sm mb-3">Neurología</p>
+                            <p class="text-secondary text-xs mb-4 flex-grow">
+                                Te apoya con temas como migrañas, problemas de memoria, concentración y más.
+                            </p>
+                            <div class="text-xs text-secondary border-t pt-3 mt-auto" style="border-color: var(--border-color-translucent);">
+                                <p><strong>Respaldo:</strong> Médico Cirujano egresada de la UCV.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-card py-12 section-animation">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8"> 
+                <div class="md:col-span-1 flex flex-col items-center md:items-start"> 
+                    <div class="mb-4">
+                        <img src="images/logo-mindbloom.svg" alt="Logo MindBloom" class="h-32 w-auto">
+                    </div>
+                    <p class="text-secondary mb-4 text-center md:text-left">Tu espacio seguro para crecer y encontrar calma. Estamos aquí para ti, adolescente venezolano.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-secondary hover:text-accent transition-colors" aria-label="Facebook MindBloom"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-secondary hover:text-accent transition-colors" aria-label="Instagram MindBloom"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-secondary hover:text-accent transition-colors" aria-label="Twitter MindBloom"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="md:pt-0"> 
+                    <h4 class="font-semibold mb-4 text-center md:text-left">Enlaces Rápidos</h4>
+                    <ul class="space-y-2 text-secondary text-center md:text-left">
+                        <li><a href="#hero" class="hover:text-accent transition-colors">Inicio</a></li>
+                        <li><a href="#check-in" class="hover:text-accent transition-colors">Mi Día</a></li>
+                        <li><a href="#tools" class="hover:text-accent transition-colors">Herramientas</a></li>
+                        <li><a href="#equipo" class="hover:text-accent transition-colors">Nuestro Equipo</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Términos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="md:pt-0"> 
+                    <h4 class="font-semibold mb-4 text-center md:text-left">Emergencia</h4>
+                    <div class="text-center md:text-left">
+                        <p class="text-secondary mb-2">Si estás en crisis inmediata:</p>
+                        <div class="space-y-2">
+                            <p class="text-accent font-semibold">📞 171 - Línea de Crisis (Vzla)</p>
+                            <p class="text-accent font-semibold">📞 911 - Emergencias (Vzla)</p>
+                            <p class="text-secondary text-sm">Disponibles 24/7. No dudes en llamar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t pt-8 text-center text-secondary" style="border-color: var(--border-color);">
+                <p class="mb-2">© 2025 MindBloom. Hecho con ❤️ en Venezuela para ti.</p>
+                <p class="text-sm">Tu salud mental importa. No estás solo/a en esto.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast-notification" class="fixed bottom-5 right-5 bg-gray-800 text-white py-3 px-5 rounded-lg shadow-md hidden opacity-0 transition-opacity duration-300">
+        <p id="toast-message"></p>
+    </div>
+
+    <script src="js/app.js"></script>
+
+    <button id="scrollToTopBtn" title="Volver arriba"
+            class="scroll-to-top-stylish fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg focus:outline-none transition-all duration-300 opacity-0 pointer-events-none">
+        <i class="fas fa-chevron-up text-2xl"></i> </button>
+    <!-- 
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swPath = './service-worker.js'; 
+                console.log('Intentando registrar Service Worker con la ruta:', swPath);
+                navigator.serviceWorker.register(swPath) 
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito. Scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Error en el registro del Service Worker:', error); 
+                        console.error('Ruta del Service Worker utilizada en el intento fallido:', swPath);
+                    });
+            });
+        }
+    </script>
+    -->
+</body>
+</html>

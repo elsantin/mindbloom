@@ -1,0 +1,356 @@
+        :root {
+            /* Dark mode colors (default) */
+            --bg-main: #1A1A1A;
+            --bg-main-rgb: 26, 26, 26; 
+            --bg-card: #2B2B2B;
+            --bg-card-rgb: 43, 43, 43; 
+            --text-primary: #EAEAEA;
+            --text-secondary: #A0A0A0;
+            --accent: #A2E4B8; 
+            --accent-rgb: 162, 228, 184; 
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(162, 228, 184, 0.1);
+            
+            /* COMENTARIO_ESTRATÉGICO: Colores para el nuevo botón dinámico del hero */
+            --hero-btn-gradient-start: #BDE4CB; /* Verde muy pálido */
+            --hero-btn-gradient-mid: #A2E4B8;   /* Verde pálido original */
+            --hero-btn-gradient-end: #C4D7F2;   /* Azulado/Lavanda suave */
+            --hero-text-accent-color: #BDE4CB;  /* Color para el span en el H1 del hero */
+        }
+
+        [data-theme="light"] {
+            /* Light mode colors */
+            --bg-main: #F8F9FA;
+            --bg-main-rgb: 248, 249, 250; 
+            --bg-card: #FFFFFF;
+            --bg-card-rgb: 255, 255, 255; 
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent: #2D8A47; 
+            --accent-rgb: 45, 138, 71;   
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(45, 138, 71, 0.15); 
+
+            /* COMENTARIO_ESTRATÉGICO: Colores para el nuevo botón dinámico del hero en modo claro */
+            --hero-btn-gradient-start: #A2E4B8; 
+            --hero-btn-gradient-mid: #85DAB0;   
+            --hero-btn-gradient-end: #A9C9E8;   
+            --hero-text-accent-color: #2D8A47;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+        }
+
+        .bg-main { background-color: var(--bg-main); }
+        .bg-card { background-color: var(--bg-card); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .accent-text { color: var(--accent); }
+        .border-custom { border-color: var(--border-color); }
+
+        .emergency-button {
+            background-color: rgba(255, 0, 0, 0.1); 
+            color: #FF6B6B; 
+            border: 1px solid #FF6B6B;
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px); 
+            -webkit-backdrop-filter: blur(5px); 
+        }
+
+        .emergency-button:hover,
+        .emergency-button:focus {
+            background-color: #FF6B6B; 
+            color: var(--text-primary); 
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5); 
+        }
+        
+        header {
+            /* COMENTARIO_ESTRATÉGICO: Header aún más delgado */
+            padding-top: 0.25rem;    /* Reducido desde 0.5rem */
+            padding-bottom: 0.25rem; /* Reducido desde 0.5rem */
+            position: sticky; 
+            top: 0;
+            z-index: 50; 
+            /* COMENTARIO_ESTRATÉGICO: Glassmorphism - Asegúrate que esto se aplique */
+            background-color: rgba(var(--bg-main-rgb), 0.75); /* Aumenté un poco la transparencia */
+            backdrop-filter: blur(12px); /* Aumenté un poco el blur */
+            -webkit-backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border-color); 
+        }
+
+        .header-logo {
+            max-height: 28px; /* Reducido desde 32px para header más delgado */
+        }
+        
+        .footer-logo {
+            max-height: 50px; 
+            margin-bottom: 0.5rem; 
+        }
+
+        #mobile-menu {
+            background-color: rgba(var(--bg-card-rgb), 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            transition: color 0.3s ease, background-color 0.3s ease;
+            padding: 0.25rem 0.625rem; /* Ajustado ligeramente para el header más delgado */
+            border-radius: 0.375rem; 
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .nav-link.active { 
+            color: var(--accent);
+            background-color: rgba(var(--accent-rgb), 0.15); 
+        }
+        
+        .hero-section {
+            min-height: calc(100vh - 50px); /* Ajustado para el nuevo alto del header (aprox) */
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('../images/hero-mindbloom-flor.jpg'); /* Un poco más oscuro el overlay */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+        }
+        
+        /* COMENTARIO_ESTRATÉGICO: Clase para el texto "MindBloom" en el H1 del hero */
+        .text-accent-hero {
+            color: var(--hero-text-accent-color);
+            /* Podríamos añadir una sutil animación de texto aquí si se desea */
+        }
+
+        /* COMENTARIO_ESTRATÉGICO: Nuevo botón dinámico para el Hero Section */
+        .btn-hero-dynamic {
+            display: inline-block;
+            padding: 0.875rem 2rem; /* padding: py-3.5 px-8 */
+            font-size: 1rem; /* text-base */
+            font-weight: 600; /* font-semibold */
+            color: var(--bg-main); /* Texto oscuro para contraste con gradiente claro */
+            border-radius: 0.75rem; /* rounded-xl */
+            text-decoration: none;
+            background-size: 300% 300%; /* Tamaño del gradiente para la animación */
+            background-image: linear-gradient(
+                135deg, 
+                var(--hero-btn-gradient-start), 
+                var(--hero-btn-gradient-mid), 
+                var(--hero-btn-gradient-end),
+                var(--hero-btn-gradient-mid),
+                var(--hero-btn-gradient-start)
+            );
+            animation: gradientFlow 8s ease infinite; /* Animación del gradiente */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(var(--accent-rgb), 0.3); /* Sombra sutil */
+        }
+
+        .btn-hero-dynamic:hover,
+        .btn-hero-dynamic:focus {
+            transform: translateY(-3px) scale(1.03); /* Ligero levantamiento y escala */
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.15), 0 0 20px 5px rgba(var(--accent-rgb), 0.2); /* Sombra más pronunciada y "glow" */
+            outline: none;
+        }
+        
+        /* COMENTARIO_ESTRATÉGICO: Keyframes para la animación del gradiente del botón hero */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        .btn { /* Estilos para botones genéricos, si aún los necesitas */
+            background-color: var(--accent);
+            color: var(--bg-main); 
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .btn:hover,
+        .btn:focus {
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: var(--accent);
+            color: var(--bg-main);
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 0.75rem; 
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 4px 8px var(--shadow-color); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); 
+        }
+
+        .mood-button {
+            transition: all 0.2s ease-in-out;
+            background-color: var(--bg-card); /* Aseguramos que use el color de card del tema */
+            color: var(--text-primary);
+        }
+        .mood-button:hover {
+            transform: scale(1.05) translateY(-2px); /* Ajuste sutil */
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+        .mood-button.ring-accent { /* Clase para el botón seleccionado */
+             box-shadow: 0 0 0 2px var(--bg-main), 0 0 0 4px var(--accent);
+        }
+
+
+        footer {
+            background-color: var(--bg-card); 
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .section-animation {
+            opacity: 0;
+            transform: translateY(30px); 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section-animation.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-main);
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; 
+            opacity: 1;
+            transition: opacity 0.5s ease-out; 
+        }
+
+        .loading-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none; 
+        }
+        
+        .loading-overlay img { 
+            max-width: 100px; /* Reducido para la pantalla de carga */
+            margin-bottom: 20px; 
+        }
+
+        .loading-spinner {
+            width: 40px; /* Reducido */
+            height: 40px; /* Reducido */
+            border: 3px solid var(--border-color); 
+            border-top: 3px solid var(--accent); 
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite; /* Un poco más rápido */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #toast-notification {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+        }
+
+        @media (min-width: 1024px) { 
+            .hero-text-lg-right {
+                text-align: right;
+            }
+            .hero-content-lg-right {
+                margin-left: auto; 
+                margin-right: 0; 
+                max-width: 55%; /* Un poco más de espacio para el texto */
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .btn-hero-dynamic { /* Desactivar animación de gradiente si se prefiere movimiento reducido */
+                animation: none;
+                 background-image: linear-gradient(
+                    135deg, 
+                    var(--hero-btn-gradient-start), 
+                    var(--hero-btn-gradient-mid), 
+                    var(--hero-btn-gradient-end)
+                );
+            }
+        }
+
+        /* COMENTARIO_ESTRATÉGICO: Estilos para el nuevo botón "Volver Arriba" con un toque más dinámico */
+        .scroll-to-top-stylish {
+            background-image: linear-gradient(135deg, var(--hero-btn-gradient-mid), var(--accent)); /* Gradiente sutil con colores de acento */
+            color: var(--bg-main); /* Color del icono, contrastante con el fondo del botón */
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3), 0 0 0 0 rgba(var(--accent-rgb), 0.3); /* Sombra base y preparación para pulso */
+            animation: pulseShadow 2.5s infinite cubic-bezier(0.66, 0, 0, 1); /* Animación de pulso para la sombra */
+        }
+
+        .scroll-to-top-stylish i { /* Estilo para el icono dentro del botón */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .scroll-to-top-stylish:hover {
+            transform: translateY(-4px) scale(1.1); /* Elevar y agrandar un poco */
+            box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.4), 0 0 20px 5px rgba(var(--accent-rgb), 0.2); /* Sombra más pronunciada y brillo */
+        }
+
+        .scroll-to-top-stylish:hover i {
+            transform: rotate(-15deg) scale(1.1); /* Rotar y agrandar el icono sutilmente */
+        }
+
+        .scroll-to-top-stylish:active { /* Efecto al presionar */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.3);
+        }
+
+        /* Animación de pulso para la sombra del botón */
+        @keyframes pulseShadow {
+            0% {
+                box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2), 0 0 0 0 rgba(var(--accent-rgb), 0.2);
+            }
+            70% {
+                box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2), 0 0 0 10px rgba(var(--accent-rgb), 0);
+            }
+            100% {
+                box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2), 0 0 0 0 rgba(var(--accent-rgb), 0);
+            }
+        }
